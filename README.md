@@ -39,5 +39,47 @@ Build Data Stream Processing and Analytics using Kafka as message broker and Apa
 
 ## Components
 
-Todo
+#### OLTP System
+
+- Have a python script which will act as application server, every 5 seconds dump a new data record
+- JSON object to MongoDB
+- CSV row into Supabase Postgres
+- AWS Lambda local storage has 10gb limit, create lambda function with terraform, add a python script to iterate every 5 seconds to act as a object storage emitting events.
+- Use Terraform to create infra for above OLTP system.
+
+#### Event Streaming - Kafka
+
+- Setup Kafka on Docker localhost, which will ingest all producers of OLTP.
+- Todo
+
+#### Stream Processing
+
+- Once data is available in Kafka topics, all consumer must process the stream.
+- For v1, a simple Python Script should do the work.
+
+#### Data Warehouse and Analytics
+
+- Use DuckDb to store processed streams
+- Apache Superset connect to warehouse and perform analyses on data.
+
+
+## Version 1
+
+- MongoDB Json + MongoDB Atlas without terraform
+- Kafka Local 
+- Python Script to processing stream by using Kafka Connector API
+- DuckDB to store processed stream
+- Apache SuperSet
+
+
+## Tasks
+
+- [ ] MongoDB Atlas project creation, manually.
+- [ ] Python Script as Application code to dump Json object to Atlas
+- [ ] Kafka setup on local as containers
+- [ ] Python Script with Kafka Connector API as Stream Processor with enhance or dump to Warehouse OLAP
+- [ ] DuckDB creation
+- [ ] Apache Superset Docker
+- [ ] End to End connection
+- [ ] Testing in stream processing??
 
