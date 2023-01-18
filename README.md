@@ -62,6 +62,11 @@ Build Data Stream Processing and Analytics using Kafka as message broker and Apa
 - Use DuckDb to store processed streams
 - Apache Superset connect to warehouse and perform analyses on data.
 
+## Data
+
+- Json -> T20 Internationals-men
+- CSVs -> One day Matches
+- Yaml -> Test Matches
 
 ## Version 1
 
@@ -74,8 +79,8 @@ Build Data Stream Processing and Analytics using Kafka as message broker and Apa
 
 ## Tasks
 
-- [ ] MongoDB Atlas project creation, manually.
-- [ ] Python Script as Application code to dump Json object to Atlas
+- [x] MongoDB Atlas project creation, manually.
+- [x] Python Script as Application code to dump Json object to Atlas
 - [ ] Kafka setup on local as containers
 - [ ] Python Script with Kafka Connector API as Stream Processor with enhance or dump to Warehouse OLAP
 - [ ] DuckDB creation
