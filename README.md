@@ -71,7 +71,7 @@ Build Data Stream Processing and Analytics using Kafka as message broker and Apa
 ## Version 1
 
 - MongoDB Json + MongoDB Atlas without terraform
-- Kafka Local 
+- Kafka Local Setup
 - Python Script to processing stream by using Kafka Connector API
 - DuckDB to store processed stream
 - Apache SuperSet
@@ -81,10 +81,33 @@ Build Data Stream Processing and Analytics using Kafka as message broker and Apa
 
 - [x] MongoDB Atlas project creation, manually.
 - [x] Python Script as Application code to dump Json object to Atlas
-- [ ] Kafka setup on local as containers
-- [ ] Python Script with Kafka Connector API as Stream Processor with enhance or dump to Warehouse OLAP
-- [ ] DuckDB creation
+- [x] Kafka setup on local as containers
+- [ ] Python Script to connect MongoDB stream to Kafka Producer API
+- [ ] Python Script with Kafka Consumer API as Stream Processor to enhance and dump to Warehouse OLAP
+- [x] DuckDB creation
 - [ ] Apache Superset Docker
 - [ ] End to End connection
-- [ ] Testing in stream processing??
+- [ ] Extra: Testing in stream processing??
+
+
+## How to Run on Local
+
+Create Mongo Atlas Account on their platform, use default cluster0, create a database user, whitelist your own IP in network access, get Mongo URI and create + append in .env file
+
+> `MONGO_URI=mongodb+srv://<user>:<password>@<cluster_name>.mongodb.net`
+
+Install Python dependencies:
+
+> `pip install -r requirements.txt`
+
+Start Kafka Local Docker container, creates DuckDB OLAP file:
+
+> `make local-infra-whirl-up`
+
+Start application server process to dump data into makeshift OLTP systems.
+
+> `python -m application_server.dumpToMongo`
+
+
+
 
