@@ -47,19 +47,19 @@ Build Data Stream Processing and Analytics using Kafka as message broker and Apa
 - AWS Lambda local storage has 10gb limit, create lambda function with terraform, add a python script to iterate every 5 seconds to act as a object storage emitting events.
 - Use Terraform to create infra for above OLTP system.
 
-#### Event Streaming - Kafka
+#### Event Broker - Kafka
 
 - Setup Kafka on Docker localhost, which will ingest all producers of OLTP.
-- Todo
+- Events will available in topics
 
 #### Stream Processing
 
-- Once data is available in Kafka topics, all consumer must process the stream.
-- For v1, a simple Python Script should do the work.
+- Once data is available in Kafka topics, either use a consumer to process the events and dump to another topic or use KSQL for stream processing.
+- For v1, a simple Python Script and KSQL.
 
 #### Data Warehouse and Analytics
 
-- Use DuckDb to store processed streams
+- A kafka consumer will dump data into DuckDb to store processed streams
 - Apache Superset connect to warehouse and perform analyses on data.
 
 ## Data
@@ -84,11 +84,22 @@ Build Data Stream Processing and Analytics using Kafka as message broker and Apa
 - [x] Kafka setup on local as containers
 - [ ] Python Script to connect MongoDB stream to Kafka Producer API
 - [ ] Python Script with Kafka Consumer API as Stream Processor to enhance and dump to Warehouse OLAP
+- [ ] Split source mongo topic into 3 topics: equivalent of datasets and dump to DuckDb
+- [ ] Transform Json into Table Record
 - [x] DuckDB creation
 - [ ] Apache Superset Docker
 - [ ] End to End connection
 - [ ] Extra: Testing in stream processing??
 
+## Analysis:
+
+#### Topic Segregation 
+- Extract Match meta data into a topic
+- Extract Player data into a topic
+- Extract Innings Data into a topic
+- One topic from Mongo stream processed into 3 topics using Python Script
+
+![Alt text](topic_segregation.png)
 
 ## How to Run on Local
 

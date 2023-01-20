@@ -23,7 +23,7 @@ for file_path in source_data.iterdir():
         document = json.load(open(file_path))
         collection.insert_one(document) 
         print(f"Document Inserted : {counter}")
-        time.sleep(20)
+        time.sleep(2)
 
 
 print("Dumping of Cricket Json Done.... check events on other side...")

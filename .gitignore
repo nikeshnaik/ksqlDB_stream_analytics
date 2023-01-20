@@ -132,3 +132,7 @@ dmypy.json
 
 ## added
 cspell.config.yaml
+config.yaml
+.env
+source_data
+.vscode
