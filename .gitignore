@@ -136,3 +136,5 @@ config.yaml
 .env
 source_data
 .vscode
+olap_streaming_store
+olap_streaming_data

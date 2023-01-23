@@ -82,10 +82,10 @@ Build Data Stream Processing and Analytics using Kafka as message broker and Apa
 - [x] MongoDB Atlas project creation, manually.
 - [x] Python Script as Application code to dump Json object to Atlas
 - [x] Kafka setup on local as containers
-- [ ] Python Script to connect MongoDB stream to Kafka Producer API
+- [x] Python Script to connect MongoDB stream to Kafka Producer API
 - [ ] Python Script with Kafka Consumer API as Stream Processor to enhance and dump to Warehouse OLAP
-- [ ] Split source mongo topic into 3 topics: equivalent of datasets and dump to DuckDb
-- [ ] Transform Json into Table Record
+- [x] Split source mongo topic into 3 topics: equivalent of datasets and dump to DuckDb
+- [x] Transform Json into Table Record
 - [x] DuckDB creation
 - [ ] Apache Superset Docker
 - [ ] End to End connection
