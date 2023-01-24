@@ -34,7 +34,7 @@ while True:
     del currentEvent["_id"]
     currentEvent = json.dumps(currentEvent)
 
-
+    
     mongo_producer.produce("source", currentEvent)
     mongo_producer.poll(10)
     mongo_producer.flush()
