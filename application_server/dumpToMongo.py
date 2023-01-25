@@ -4,11 +4,12 @@ import os
 from pathlib import Path
 import json
 import time
+from loggers.log_helper import system_logger
 
 load_dotenv()
 
 client = pymongo.MongoClient(os.getenv("MONGO_URI"))
-print(client.drop_database("streaming_cricket"))
+system_logger.info(f"{client.drop_database('streaming_cricket')}")
 
 database = client.streaming_cricket
 collection = database.create_collection("twenty_20")
@@ -22,11 +23,18 @@ for file_path in source_data.iterdir():
         # print(json.load(open(file_path)))
         document = json.load(open(file_path))
         collection.insert_one(document) 
-        print(f"Document Inserted : {counter}")
-        time.sleep(2)
+        # print(f"Document Inserted : {counter}")
+        system_logger.info(f"Document Inserted : {counter}")
+
+        time.sleep(5)
 
 
-print("Dumping of Cricket Json Done.... check events on other side...")
+system_logger.info("Dumping of Cricket Json Done.... check events on other side...")
+
+
+
+
+
 
 
 

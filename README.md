@@ -88,7 +88,7 @@ Build Data Stream Processing and Analytics using Kafka as message broker and Apa
 - [x] Transform Json into Table Record
 - [x] DuckDB creation
 - [ ] Apache Superset Docker
-- [ ] End to End connection
+- [x] End to End system
 - [ ] Extra: Testing in stream processing??
 
 ## Analysis:
@@ -115,19 +115,15 @@ Start Kafka Local Docker container, creates DuckDB OLAP file:
 
 > `make local-infra-whirl-up`
 
-Start application server process to dump data into makeshift OLTP systems.
+Run whole system for 5mins as demo [ Resource constraint]
 
-> `python -m application_server.dumpToMongo`
+> `python main.py`
 
-Send Mongo Events to Kafka topics
-
-> `python -m kafka_io.mongoProducer`
-
-Apply Stream Processors on incoming data from one topic to another topic but processed or enhanced
-
-> `python -m stream_tranformation.stream_processors`
+Check logs
+> `tail -f system.log`
 
 Load Enhanced data into DuckDB
-
 > `python -m data_warehouse.load`
+
+
 

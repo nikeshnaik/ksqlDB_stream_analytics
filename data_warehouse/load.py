@@ -73,6 +73,7 @@ def metadataDumpToDuckDB(topic, db_path, table_name):
                 consumer.commit(asynchronous=True)
 
 
+
 if __name__ == "__main__":
 
     topic = "metadata"

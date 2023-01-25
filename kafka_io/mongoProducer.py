@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 from confluent_kafka import Producer
 import json
 from pprint import pprint
+from loggers.log_helper import system_logger
+
 
 load_dotenv()
 
@@ -25,18 +27,21 @@ mongo_producer = Producer({
 
 while True:
 
-    print("Waiting for new events from Mongo Atlas....\n")
+    system_logger.info("Waiting for new events from Mongo Atlas....\n")
     event_stream = collection.watch()
     total_events +=1
 
     currentEvent = next(event_stream)
-    currentEvent = currentEvent["fullDocument"]
-    del currentEvent["_id"]
-    currentEvent = json.dumps(currentEvent)
+    currentEvent = currentEvent.get("fullDocument", {})
+    if "_id" in currentEvent:
+        del currentEvent["_id"]
 
-    
-    mongo_producer.produce("source", currentEvent)
+    if currentEvent:
+        currentEvent = json.dumps(currentEvent)
+        mongo_producer.produce("source", currentEvent)
+
     mongo_producer.poll(10)
     mongo_producer.flush()
 
-    print(f"Total Events polled: {total_events}")
+
+    system_logger.info(f"Total Events flushed: {total_events}")

@@ -1,0 +1,24 @@
+version: 1
+formatters:
+  default:
+    format: "%(message)%(levelname)%(name)%(asctime)%(module)%(funcName)%(pathname)%(lineno)%(filename)"
+    class: pythonjsonlogger.jsonlogger.JsonFormatter
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: default
+    stream: ext://sys.stdout
+  file:
+    class: logging.handlers.TimedRotatingFileHandler
+    level: INFO
+    formatter: default
+    filename: system.log
+    backupCount: 4
+loggers:
+  local:
+    handlers: [file]
+    propagate: False
+root:
+  level: DEBUG
+  handlers: [file]
