@@ -68,11 +68,13 @@ Build Data Stream Processing and Analytics using Kafka as message broker and Apa
 - CSVs -> One day Matches
 - Yaml -> Test Matches
 
-## Version 1
+## Version 2
 
 - MongoDB Json + MongoDB Atlas without terraform
 - Kafka Local Setup
-- Python Script to processing stream by using Kafka Connector API
+- Kafka Connect to receive any Mongo Updates
+- Kafka Schema Registry to make topic schema consistent across consumers and producers
+- ksqlDB for stream processing
 - DuckDB to store processed stream
 - Apache SuperSet
 
@@ -81,14 +83,14 @@ Build Data Stream Processing and Analytics using Kafka as message broker and Apa
 
 - [x] MongoDB Atlas project creation, manually.
 - [x] Python Script as Application code to dump Json object to Atlas
-- [x] Kafka setup on local as containers
-- [x] Python Script to connect MongoDB stream to Kafka Producer API
-- [x] Python Script with Kafka Consumer API as Stream Processor to enhance and dump to Warehouse OLAP
-- [x] Split source mongo topic into 3 topics: equivalent of datasets and dump to DuckDb
-- [x] Transform Json into Table Record
-- [x] DuckDB creation
-- [ ] Apache Superset Docker
-- [x] End to End system
+- [x] (infra)Kafka setup on local as containers
+- [ ] (infra) Kafka Connect Docker 
+- [ ] (infra)Kafka Scheama Registry
+- [ ] Split source mongo topic into 3 topics: equivalent of datasets and dump to DuckDb
+- [ ] Transform Json into Table Record with ksqlDB
+- [ ] (infra)DuckDB creation
+- [ ] (infra)Apache Superset Docker
+- [ ] End to End system
 - [ ] Extra: Testing in stream processing??
 
 ## Analysis:
