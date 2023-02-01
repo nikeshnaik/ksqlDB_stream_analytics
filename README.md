@@ -127,5 +127,16 @@ Check logs
 Load Enhanced data into DuckDB
 > `python -m data_warehouse.load`
 
+Install Confluent Hub Plugins:
+
+- download zip file, copy into same path as connect plugin env path, install with confluent-hub install *.zip, restart the container
+- create source or sink in ksqldb cli.
 
 
+#### References:
+
+- [Mongo Connector Config properties](https://www.mongodb.com/docs/kafka-connector/current/source-connector/configuration-properties/all-properties/)
+- [Mongo Source Connector Config](https://www.mongodb.com/docs/kafka-connector/current/tutorials/source-connector/)
+- [ksqlDb - Too many cooks in the kitchen](https://ksqldb.io/overview.html  )
+- [kafka connectors additon to docker, pain](https://www.youtube.com/watch?v=CcHn_V5Sm8c)
+- [Confluent-hub installation of connectors](https://docs.confluent.io/kafka-connectors/self-managed/confluent-hub/client.html#install-while-offline-using-a-zip-file)
