@@ -1,7 +1,0 @@
-CREATE SOURCE CONNECTOR mongo_source_cricket WITH (
-'connector.class'= 'com.mongodb.kafka.connect.MongoSourceConnector',
-'connection.uri'= <connection uri>,
-'database'= <database>,
-'collection'= <collection>,
-'topic'= <topic>
-);

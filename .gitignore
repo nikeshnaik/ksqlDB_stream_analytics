@@ -139,4 +139,5 @@ source_data
 olap_streaming_store
 olap_streaming_data
 .fleet
-/kafka_io/connectors/
+/kafka_io/plugins/*
+/stream_processors/connectors.py

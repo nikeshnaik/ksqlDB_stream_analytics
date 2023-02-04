@@ -13,7 +13,7 @@ handlers:
     class: logging.handlers.TimedRotatingFileHandler
     level: INFO
     formatter: default
-    filename: system.log
+    filename: loggers/system.log
     backupCount: 4
 loggers:
   local:

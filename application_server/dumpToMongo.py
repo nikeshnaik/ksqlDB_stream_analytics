@@ -22,7 +22,12 @@ for file_path in source_data.iterdir():
         counter = counter + 1
         # print(json.load(open(file_path)))
         document = json.load(open(file_path))
-        collection.insert_one(document) 
+        mini_doc = {
+            "city":document.get("info", {}).get("city", "New World"),
+            "match_type_number": 1
+        }
+        collection.insert_one(mini_doc) 
+
         # print(f"Document Inserted : {counter}")
         system_logger.info(f"Document Inserted : {counter}")
 

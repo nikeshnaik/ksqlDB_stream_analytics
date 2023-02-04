@@ -1,48 +1,52 @@
-#Todo, read as Kafka COnsumer and do stream processing + dump into duckdb
+# Todo, read as Kafka COnsumer and do stream processing + dump into duckdb
 
-from stream_tranformation.transformations import isolateMatchMetaData, isolateOverDetails, isolatePlayersDetails
+from stream_tranformation.transformations import (
+    isolateMatchMetaData,
+    isolateOverDetails,
+    isolatePlayersDetails,
+)
 from utils.helpers import DuckDBConn, createMetaDataTable
-from confluent_kafka import Consumer,KafkaException, Producer
+from confluent_kafka import Consumer, KafkaException, Producer
 import json
 from loggers.log_helper import system_logger
 
 
 def getConsumerObject(topic):
-
-    consumer = Consumer({
-    "bootstrap.servers": "localhost:9092",
-    "sasl.mechanisms":"PLAINTEXT",
-    "group.id": "mongoProduce"
-}) 
+    consumer = Consumer(
+        {
+            "bootstrap.servers": "localhost:9092",
+            "sasl.mechanisms": "PLAINTEXT",
+            "group.id": "mongoProduce",
+        }
+    )
 
     consumer.subscribe([topic])
 
     return consumer
 
-def getProducerObject():
 
-    producer = Producer({
-    "bootstrap.servers": "localhost:9092",
-    "sasl.mechanisms":"PLAINTEXT",
-    })
+def getProducerObject():
+    producer = Producer(
+        {
+            "bootstrap.servers": "localhost:9092",
+            "sasl.mechanisms": "PLAINTEXT",
+        }
+    )
 
     return producer
 
 
 def metadataStreamProcessing(topic):
-
-
     consumer = getConsumerObject(topic)
     producer = getProducerObject()
 
     while True:
-
         try:
-
             msg = consumer.poll(timeout=5)
             system_logger.info(msg)
 
-            if msg is None: continue
+            if msg is None:
+                continue
 
             if msg.error():
                 raise KafkaException(msg.error())
@@ -52,10 +56,9 @@ def metadataStreamProcessing(topic):
             metadataRowRecord = isolateMatchMetaData(msg)
             system_logger.info(metadataRowRecord)
             producer.produce("metadata", json.dumps(metadataRowRecord))
-            
+
             producer.poll(10)
             producer.flush()
-
 
         except KafkaException as k:
             system_logger.error(f"Error on Consumer or Producer poll.. {str(k)}")
@@ -65,17 +68,15 @@ def metadataStreamProcessing(topic):
 
 
 def playerDetailsProcessing(topic):
-
     consumer = getConsumerObject(topic)
     producer = getProducerObject()
 
     while True:
-
         try:
-
             msg = consumer.poll(timeout=5)
 
-            if msg is None: continue
+            if msg is None:
+                continue
 
             if msg.error():
                 raise KafkaException(msg.error())
@@ -88,7 +89,6 @@ def playerDetailsProcessing(topic):
             producer.poll(10)
             producer.flush()
 
-
         except KafkaException as k:
             system_logger.info(f"Error on Consumer or Producer poll.., {str(k)}")
         finally:
@@ -96,17 +96,5 @@ def playerDetailsProcessing(topic):
 
 
 if __name__ == "__main__":
-
     topic = "source"
     metadataStreamProcessing(topic)
-
-        
-    
-
-
-    
-
-
-
-    
-
