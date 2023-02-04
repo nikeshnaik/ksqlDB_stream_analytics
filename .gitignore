@@ -141,3 +141,4 @@ olap_streaming_data
 .fleet
 /kafka_io/plugins/*
 /stream_processors/connectors.py
+/loggers/system.log*
