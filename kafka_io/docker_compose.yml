@@ -97,6 +97,7 @@ services:
         mkdir /usr/share/java/plugins
         echo "Installing Connector"
         confluent-hub install --no-prompt --component-dir /usr/share/java/plugins /tmp/mongodb-kafka-connect-mongodb-1.9.0.zip 
+        confluent-hub install --no-prompt --component-dir /usr/share/java/plugins /tmp/confluentinc-kafka-connect-jdbc-10.6.0.zip
         #
         echo "Launching Kafka Connect worker"
         /etc/confluent/docker/run &
