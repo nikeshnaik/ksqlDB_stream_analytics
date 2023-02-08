@@ -2,15 +2,14 @@
 
 ## Objective
 
-Build Data Stream Processing and Analytics using Kafka as message broker and Apache SuperSet as frontend. 
+Build Stream Processing and Analytics using Kafka as message broker, ksqlDB as stream processing framework, Postgres as Warehouse.  
 
 ## Functional Requirements
 
-- Data sources will generate events everytime a transaction is complete, this events must be consumed by kafka topic and let consumer aware of new events to process them in realtime.
-- Each Data source must act as a Producer of events connect with Kafka Producer API.
-- Each Data Sink must act as a Consumer of event stream and have a event processing system.
-- The processed events must be dumped into a Data Warehouse for Analytics
-- Analytics could be a SQL or Python + Visualization library.
+- OLTP system will generate events every time a transaction is completed, Kafka Source Connector will poll every new events and send to Kafka Broker.
+- A stream processing framework will apply enhancing / transformation on streams.
+- Each stream's topic would be dumped into Warehouse.
+- Apache Super will read up from warehosue for analytics.
 
 ## Non Functional Requirements
 
@@ -87,7 +86,7 @@ Build Data Stream Processing and Analytics using Kafka as message broker and Apa
 - [x] (infra) Kafka Connect Docker 
 - [x] (infra)Kafka Scheama Registry
 - [ ] Split source mongo topic into 3 topics: equivalent of datasets and dump to DuckDb
-- [ ] Transform Json into Table Record with ksqlDB
+- [x] Transform Json into Table Record with ksqlDB
 - [x] (infra)DuckDB creation
 - [ ] (infra)Apache Superset Docker
 - [ ] End to End system

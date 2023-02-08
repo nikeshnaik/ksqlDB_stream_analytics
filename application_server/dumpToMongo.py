@@ -22,25 +22,14 @@ for file_path in source_data.iterdir():
         counter = counter + 1
         # print(json.load(open(file_path)))
         document = json.load(open(file_path))
-        mini_doc = {
-            "city":document.get("info", {}).get("city", "New World"),
-            "match_type_number": 1
-        }
-        collection.insert_one(mini_doc) 
+        # mini_doc = {
+        #     "city":document.get("info", {}).get("city", "New World"),
+        #     "match_type_number": 1
+        # }
+        collection.insert_one(document)
 
         # print(f"Document Inserted : {counter}")
         system_logger.info(f"Document Inserted : {counter}")
 
-        time.sleep(5)
-
 
 system_logger.info("Dumping of Cricket Json Done.... check events on other side...")
-
-
-
-
-
-
-
-
-

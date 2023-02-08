@@ -34,7 +34,7 @@ if __name__ == "__main__":
 
     connectors_with_config = {
         "mongo_source_cricket": mongo_source_connector_config,
-        "duckdb_sink_cricket": jdbc_sink_duckdb_connector_config,
+        "postgres_sink_connector": jdbc_sink_duckdb_connector_config,
     }
 
     client = connect_server(ksqldb_server_url)
