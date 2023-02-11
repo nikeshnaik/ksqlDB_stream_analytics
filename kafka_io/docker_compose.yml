@@ -130,3 +130,10 @@ services:
     environment:
       - POSTGRES_PASSWORD=example
       - POSTGRES_USER=example
+
+  metabase:
+    image: metabase/metabase:latest
+    container_name: metabase
+    hostname: metabase
+    ports:
+      - "3000:3000"

@@ -14,7 +14,7 @@ def connect_server(url):
 def check_if_connectors_exist(client, connector_name):
     result = client.ksql("show connectors")
     connectors = result[0]["connectors"]
-    print(connectors, connector_name)
+    print("installed connectors: ",connectors)
     for each in connectors:
         if each["name"].lower() == connector_name:
             return True
@@ -40,7 +40,6 @@ if __name__ == "__main__":
     client = connect_server(ksqldb_server_url)
 
     for connector_name, connector_config in connectors_with_config.items():
-        print(connector_name)
         if not check_if_connectors_exist(client, connector_name):
             result = create_connectors(client, connector_config)
             pprint(f"Connectors Created: {connector_name}")
