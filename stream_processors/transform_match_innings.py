@@ -21,14 +21,11 @@ def read_stream(client, query):
 
 if __name__ == "__main__":
 
-
     t20_match_innings_stream = """ 
 
         CREATE STREAM IF NOT EXISTS match_innings WITH(VALUE_FORMAT='AVRO', KEY_FORMAT='AVRO') as 
-            SELECT JSON_RECORDS(EXTRACTJSONFIELD(PAYLOAD, '$.info.players')) as players, 
-                EXTRACTJSONFIELD(PAYLOAD, '$.info.teams') as teams, JSON_RECORDS(EXTRACTJSONFIELD(PAYLOAD, '$.info.registry.people')), 
-                EXTRACTJSONFIELD(PAYLOAD, '$.info.match_type_number') as match_type_number,  
-                EXTRACTJSONFIELD(PAYLOAD, '$.info.match_type') as type 
+            SELECT meta MAP<STRING, MAP< 
+
             FROM t20_match_init
     """
 
