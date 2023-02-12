@@ -1,15 +1,15 @@
-# Analysis of Cricket Data (Streaming)
+# Analysis of Cricket Data (Streaming) - V2
 
-## Objective
+## Objective 
 
 Build Stream Processing and Analytics using Kafka as message broker, ksqlDB as stream processing framework, Postgres as Warehouse.  
 
 ## Functional Requirements
 
-- OLTP system will generate events every time a transaction is completed, Kafka Source Connector will poll every new events and send to Kafka Broker.
+- OLTP system will generate events every time a transaction commits, Kafka Source Connector will poll for new events and send to Kafka Broker.
 - A stream processing framework will apply enhancing / transformation on streams.
 - Each stream's topic would be dumped into Warehouse.
-- Apache Super will read up from warehosue for analytics.
+- Metabase to visualize data will read up from warehosue for analytics.
 
 ## Non Functional Requirements
 
@@ -30,11 +30,9 @@ Build Stream Processing and Analytics using Kafka as message broker, ksqlDB as s
 -  Dump into a DuckDb OLAP warehouse
 -  Connect a Apache SuperSet, its supports DuckDB connector
 
-
 ## High Level Design - Streaming Analytics
 
 ![Alt text](high_level_data_architecture.png)
-
 
 ## Components
 
@@ -71,11 +69,11 @@ Build Stream Processing and Analytics using Kafka as message broker, ksqlDB as s
 
 - MongoDB Json + MongoDB Atlas without terraform
 - Kafka Local Setup
-- Kafka Connect to receive any Mongo Updates
+- Kafka Connectors for Mongo + Postgres 
 - Kafka Schema Registry to make topic schema consistent across consumers and producers
 - ksqlDB for stream processing
-- DuckDB to store processed stream
-- Apache SuperSet
+- Postgres to store processed stream
+- Metabase
 
 
 ## Tasks
@@ -85,11 +83,11 @@ Build Stream Processing and Analytics using Kafka as message broker, ksqlDB as s
 - [x] (infra)Kafka setup on local as containers
 - [x] (infra) Kafka Connect Docker 
 - [x] (infra)Kafka Scheama Registry
-- [ ] Split source mongo topic into 3 topics: equivalent of datasets and dump to DuckDb
+- [x] Split source mongo topic into 3 topics: equivalent of datasets and dump to DuckDb
 - [x] Transform Json into Table Record with ksqlDB
 - [x] (infra)DuckDB creation
-- [ ] (infra)Apache Superset Docker
-- [ ] End to End system
+- [x] (infra)Apache Superset Docker
+- [x] End to End system
 - [ ] Extra: Testing in stream processing??
 
 ## Analysis:
@@ -114,23 +112,33 @@ Install Python dependencies:
 
 Start Kafka Local Docker container, creates DuckDB OLAP file:
 
-> `make local-infra-whirl-up`
+> `make setup-local-infra`
 
-Run whole system for 5mins as demo [ Resource constraint]
+Import Mongo Connectors and Postgres Connectors into Kafka Connect to source and sink data
 
-> `python main.py`
+> `python -m stream_processors.load_connectors`
+
+Run Mongo makeshift OLTP system, which dumps document to Atlas and its events are picked by kafka
+
+> `python -m application_server.dumpToMongo`
+
+Create Init Stream, which will unpack json string into a stream, easy to extract in next steps. Run Transformation stream processing as well.
+
+> `python -m stream_processors.create_init_streams && python -m stream_processors.transform_match_metadata`
+
+You can run manual docker ksql queries inside docker instead of above python client.
+
+> `docker exec -it ksqldb-cli ksql http://ksqldb-server:8088`
+ 
+Check Metabase at `localhost:3000` for data being dumped at `example` database. 
 
 Check logs
-> `tail -f system.log`
-
-Load Enhanced data into DuckDB
-> `python -m data_warehouse.load`
+> `tail -f loggers/system.log`
 
 Install Confluent Hub Plugins:
 
 - download zip file, copy into same path as connect plugin env path, install with confluent-hub install *.zip, restart the container
 - create source or sink in ksqldb cli.
-
 
 #### References:
 
@@ -139,3 +147,8 @@ Install Confluent Hub Plugins:
 - [ksqlDb - Too many cooks in the kitchen](https://ksqldb.io/overview.html  )
 - [kafka connectors additon to docker, pain](https://www.youtube.com/watch?v=CcHn_V5Sm8c)
 - [Confluent-hub installation of connectors](https://docs.confluent.io/kafka-connectors/self-managed/confluent-hub/client.html#install-while-offline-using-a-zip-file)
+
+
+#### Problems faced:
+
+- There some data transformation function missing, like unnest of bigquery, array to column. But we can fallback to python basic consumer and producer clients.

@@ -14,7 +14,7 @@ def connect_server(url):
 def check_if_connectors_exist(client, connector_name):
     result = client.ksql("show connectors")
     connectors = result[0]["connectors"]
-    print("installed connectors: ",connectors)
+    print("installed connectors: ", connectors)
     for each in connectors:
         if each["name"].lower() == connector_name:
             return True
